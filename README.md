@@ -22,3 +22,10 @@ Imagens originais fornecidas pelo usuário, sem recortes. A pilha CSS começa co
 ## Verificação
 
 `npm ci`, `npm run build`, `npm test`. Os testes simulam a operadora; não criam cobranças reais. É necessário testar uma cobrança autorizada após configurar a chave na hospedagem.
+
+## Pastas dos checkouts
+
+- `checkout-1/index.html`: R$ 397,70, publicado em `/checkout-1/`.
+- `checkout-2/index.html`: R$ 599,40, publicado em `/checkout-2/`.
+
+As páginas compartilham `public/app.js`, `public/style.css`, imagens e a função `api/pix.js`. Publique a raiz do repositório; o build copia as duas pastas para a saída pública. Os links anteriores continuam disponíveis.

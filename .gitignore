@@ -2,3 +2,5 @@
 !.env.example
 node_modules/
 .vercel/
+public/checkout-1/
+public/checkout-2/
