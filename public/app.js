@@ -6,6 +6,7 @@ document.querySelectorAll('.price').forEach(el => { el.textContent = money; });
 const form = document.querySelector('#checkout-form');
 const dialog = document.querySelector('#pix-dialog');
 const generate = document.querySelector('#generate');
+const generateLabel = document.querySelector('#generate-label');
 const openPix = document.querySelector('#open-pix');
 const errorBox = document.querySelector('#error');
 const email = document.querySelector('#email');
@@ -33,7 +34,7 @@ form.addEventListener('submit', async event => {
   if (!form.reportValidity()) return;
   busy = true;
   generate.disabled = openPix.disabled = true;
-  generate.textContent = 'Gerando seu Pix…';
+  generateLabel.textContent = 'Gerando seu Pix…';
   errorBox.textContent = '';
   const body = Object.fromEntries(new FormData(form));
   body.offer = offer;
@@ -54,7 +55,7 @@ form.addEventListener('submit', async event => {
   } finally {
     busy = false;
     generate.disabled = openPix.disabled = false;
-    generate.textContent = payment ? 'Ver código QR' : '▦  Gerar código QR';
+    generateLabel.textContent = payment ? 'Ver código QR' : 'Gerar código QR';
   }
 });
 openPix.addEventListener('click', () => { if (payment) showPayment(); else form.requestSubmit(); });
