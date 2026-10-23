@@ -1,5 +1,5 @@
 const path = location.pathname.replace(/\/$/, '');
-const offer = document.documentElement.dataset.offer || (path === '/checkout/59940' || path === '/checkout-2' ? '59940' : '39770');
+const offer = document.documentElement.dataset.offer || (path === '/checkout/59940' || path === '/checkout-2' ? '59940' : '29700');
 const amount = Number(offer);
 const money = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(amount / 100);
 document.querySelectorAll('.price').forEach(el => { el.textContent = money; });

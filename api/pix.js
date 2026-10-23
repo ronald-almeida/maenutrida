@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import QRCode from 'qrcode';
-export const prices = Object.freeze({ '39770': 39770, '59940': 59940 });
+export const prices = Object.freeze({ '29700': 29700, '59940': 59940 });
 const digits = value => String(value ?? '').replace(/\D/g, '');
 export function validDocument(value) {
   if (!/^\d{11}$|^\d{14}$/.test(value) || /^(\d)\1+$/.test(value)) return false;
