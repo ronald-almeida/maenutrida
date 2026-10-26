@@ -1,15 +1,21 @@
-# Mãe Nutrida — checkout Pix
+# Combo Refrigerista — checkout Pix
 
-Dois checkouts com a mesma página e preços definidos no servidor:
+Checkout principal com a imagem fornecida, layout responsivo e preço definido no servidor:
 
-- `/checkout/29700` — R$ 297,00 (também disponível na raiz `/`)
+- `/` e `/checkout/39700` — Combo Refrigerista Completo - Black Friday 2026, **R$ 397,00**.
+- Ao gerar o Pix, abre um popup com QR Code, código copia e cola e botão de copiar.
+- O formulário inclui celular porque a API Black Cat exige `customer.phone`.
+
+Ofertas anteriores preservadas:
+
+- `/checkout/29700` — R$ 297,00
 - `/checkout/59940` — R$ 599,40
 
 ## Publicação na Vercel
 
 Importe este repositório como projeto, usando o preset **Other**, build `npm run build` e diretório de saída `public`. Configure `BLACKCAT_API_KEY` nas variáveis de ambiente do servidor e publique novamente após configurá-la. Nunca use prefixo público na chave nem coloque a chave no código.
 
-A função `/api/pix` chama a API documentada em https://docs.blackcatoficial.com/ com `X-API-Key`, valores em centavos e `paymentMethod: pix`. O cliente escolhe somente uma das duas ofertas; o servidor ignora qualquer valor enviado pelo navegador.
+A função `/api/pix` chama a API documentada em https://docs.blackcatoficial.com/ com `X-API-Key`, valores em centavos e `paymentMethod: pix`. O cliente envia um identificador de oferta; o servidor define o nome do produto e o valor, ignorando qualquer preço enviado pelo navegador.
 
 Sem banco de dados e sem armazenamento local de cobranças. O Pix fica apenas na memória da página e no processador Black Cat. Fechar e reabrir o popup reutiliza o Pix da página. Atualizar a página perde esse estado. Não há retentativa automática após falha de comunicação; `externalRef` é uma referência de atendimento, não uma garantia de idempotência da operadora.
 
@@ -17,7 +23,7 @@ O QR Code é renderizado no servidor a partir do código copia e cola. Não são
 
 ## Fonte e imagens
 
-Imagens originais fornecidas pelo usuário, sem recortes. A pilha CSS começa com `Hotmart Sans`, seguida por Arial e Helvetica. Como o arquivo licenciado de Hotmart Sans não foi fornecido, o navegador usa a fonte disponível da pilha. Não há identificação de proteção ou processamento pela Hotmart.
+Imagem do instrutor fornecida pelo usuário em `public/assets/refrigerista.png`. A pilha CSS solicitada começa com `Hotmart Sans`, seguida por Arial e Helvetica; o código Pix usa a pilha monoespaçada. Como o arquivo Hotmart Sans não foi fornecido, usa a fonte local se instalada ou Arial como fallback. A página principal identifica o processamento pela Black Cat e não exibe selo de proteção da Hotmart.
 
 ## Verificação
 

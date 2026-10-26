@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import QRCode from 'qrcode';
-export const prices = Object.freeze({ '29700': 29700, '59940': 59940 });
+export const prices = Object.freeze({ '39700': 39700, '29700': 29700, '59940': 59940 });
 const digits = value => String(value ?? '').replace(/\D/g, '');
 export function validDocument(value) {
   if (!/^\d{11}$|^\d{14}$/.test(value) || /^(\d)\1+$/.test(value)) return false;
@@ -24,7 +24,7 @@ export function parsePurchase(body) {
   if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Informe um email válido.');
   if (!/^\d{10,11}$/.test(phone)) throw new Error('Informe um celular com DDD.');
   if (!validDocument(document)) throw new Error('Informe um CPF ou CNPJ válido.');
-  const payload = { amount, currency: 'BRL', paymentMethod: 'pix', items: [{ title: 'Formação em Nutrição Funcional Aplicada à FIV', unitPrice: amount, quantity: 1, tangible: false }], customer: { name, email, phone, document: { number: document, type: document.length === 11 ? 'cpf' : 'cnpj' } }, pix: { expiresInDays: 1 }, externalRef: randomUUID() };
+  const payload = { amount, currency: 'BRL', paymentMethod: 'pix', items: [{ title: amount === 39700 ? 'Combo Refrigerista Completo - Black Friday 2026' : 'Formação em Nutrição Funcional Aplicada à FIV', unitPrice: amount, quantity: 1, tangible: false }], customer: { name, email, phone, document: { number: document, type: document.length === 11 ? 'cpf' : 'cnpj' } }, pix: { expiresInDays: 1 }, externalRef: randomUUID() };
   for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']) {
     if (typeof body[key] === 'string') payload[key] = body[key].slice(0, 200);
   }

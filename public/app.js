@@ -16,6 +16,25 @@ let busy = false;
 function validateEmail() {
   confirmEmail.setCustomValidity(email.value.trim().toLowerCase() === confirmEmail.value.trim().toLowerCase() ? '' : 'Os emails precisam ser iguais.');
 }
+// Show validation feedback after the buyer interacts, not on the initial page.
+for (const input of form.querySelectorAll('input')) {
+  const message = document.createElement('span');
+  message.id = `${input.id}-error`;
+  message.className = 'field-error';
+  input.setAttribute('aria-describedby', message.id);
+  (input.closest('.phone') || input).insertAdjacentElement('afterend', message);
+  const renderError = () => {
+    const invalid = !input.validity.valid;
+    input.setAttribute('aria-invalid', String(invalid));
+    message.textContent = invalid ? input.validationMessage : '';
+  };
+  input.addEventListener('invalid', renderError);
+  input.addEventListener('input', () => {
+    if (input === email || input === confirmEmail) validateEmail();
+    if (input.getAttribute('aria-invalid') === 'true') renderError();
+  });
+  input.addEventListener('blur', renderError);
+}
 email.addEventListener('input', validateEmail);
 confirmEmail.addEventListener('input', validateEmail);
 function showPayment() {
@@ -24,6 +43,11 @@ function showPayment() {
   qr.hidden = !payment.qrImage;
   if (payment.qrImage) qr.src = payment.qrImage;
   document.querySelector('#copy-status').textContent = '';
+  const expiry = document.querySelector('#pix-expiration');
+  if (expiry) {
+    const date = new Date(payment.expiresAt);
+    expiry.textContent = payment.expiresAt && Number.isFinite(date.getTime()) ? `Válido até ${date.toLocaleString('pt-BR')}.` : '';
+  }
   if (!dialog.open) dialog.showModal();
 }
 form.addEventListener('submit', async event => {

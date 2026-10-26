@@ -3,14 +3,18 @@
   "rewrites": [
     {
       "source": "/checkout/29700",
-      "destination": "/index.html"
+      "destination": "/nutricao.html"
     },
     {
       "source": "/checkout/39770",
-      "destination": "/index.html"
+      "destination": "/nutricao.html"
     },
     {
       "source": "/checkout/59940",
+      "destination": "/nutricao.html"
+    },
+    {
+      "source": "/checkout/39700",
       "destination": "/index.html"
     }
   ],

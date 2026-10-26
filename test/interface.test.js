@@ -4,8 +4,8 @@ import { readFile } from 'node:fs/promises';
 import { JSDOM } from 'jsdom';
 const html = await readFile(new URL('../public/index.html', import.meta.url), 'utf8');
 const script = await readFile(new URL('../public/app.js', import.meta.url), 'utf8');
-for (const offer of ['29700','59940']) test(`popup and copy flow ${offer}`, async () => {
-  const dom = new JSDOM(html, { url: `https://example.com/checkout/${offer}`, runScripts: 'outside-only' });
+for (const offer of ['29700','59940','39700']) test(`popup and copy flow ${offer}`, async () => {
+  const dom = new JSDOM(offer === '39700' ? html : html.replace('data-offer="39700"', ''), { url: `https://example.com/checkout/${offer}`, runScripts: 'outside-only' });
   const { window } = dom;
   const doc = window.document;
   const dialog = doc.querySelector('dialog');
